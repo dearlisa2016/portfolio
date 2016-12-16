@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旅游</title>
+	<style type="text/css">
+		li{list-style: none;}
+		.wrap{
+			height: 400px;
+			width: 800px;
+			border: 3px solid #333;
+			background: url(img/img1.jpg) center no-repeat;
+			background-size: cover;
+			position: relative;
+		}
+		ul{
+			margin: 0;
+			padding: 0;
+			font-size: 0;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			overflow: hidden;
+		}
+		li{
+			margin: 0;
+			padding: 0;
+			background: rgba(0,0,0,.3);
+			width: 160px;
+			display: inline-block;
+			cursor: pointer;
+			vertical-align: bottom;
+			border-top: 3px solid #add;
+			height: 130px;
+		}
+		h2{
+			color: #add;
+			font-size: 30px;
+			margin: 25px 0;
+		}
+		p{
+			color: #fff;
+			font-size: 14px;
+			margin: 14px 0;
+		}
+		p:nth-of-type(2){
+			border-top: 1px solid #add;
+			padding-top: 5px;
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<ul>
+		<li>
+			<h2>云南</h2>
+			<p>东川红土地的炫彩、高原明珠——抚仙湖的柔美</p>
+			<p>发团日期：7-11月<br>参考价格：2780元<br>摄影器材: 单反 广角 中长焦 三脚架等</p>
+		</li>
+		<li>
+			<h2>新疆</h2>
+			<p>东川红土地的炫彩、高原明珠——抚仙湖的柔美</p>
+			<p>发团日期：7-11月<br>参考价格：2780元<br>摄影器材: 单反 广角 中长焦 三脚架等</p>
+		</li>
+		<li>
+			<h2>西藏</h2>
+			<p>东川红土地的炫彩、高原明珠——抚仙湖的柔美</p>
+			<p>发团日期：7-11月<br>参考价格：2780元<br>摄影器材: 单反 广角 中长焦 三脚架等</p>
+		</li>
+		<li>
+			<h2>青海</h2>
+			<p>东川红土地的炫彩、高原明珠——抚仙湖的柔美</p>
+			<p>发团日期：7-11月<br>参考价格：2780元<br>摄影器材: 单反 广角 中长焦 三脚架等</p>
+		</li>
+		<li>
+			<h2>四川</h2>
+			<p>东川红土地的炫彩、高原明珠——抚仙湖的柔美</p>
+			<p>发团日期：7-11月<br>参考价格：2780元<br>摄影器材: 单反 广角 中长焦 三脚架等</p>
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("li").hover(function(){
+			var num=$(this).index()+1;
+			$(".wrap").css("background-image","url(img/img"+num+".jpg)");
+			$(this).stop().animate({
+				height:"400px"
+			},300,function(){
+				$(this).find("h2").animate({
+				"margin-top":"150px"
+			},200)
+			}
+			);
+
+		},function(){
+			$(this).stop().animate({
+				height:"130px"
+			},300,function(){
+			$(this).find("h2").animate({
+				"margin-top":"25px"
+			},200)}
+			)
+		})
+	})
+</script>
+
+
+
+</body>
+</html>
