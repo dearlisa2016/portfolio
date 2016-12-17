@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分析问题1</title>
+	<style type="text/css">
+	img{display: block;width: 500px;}
+	img:target{border: 2px solid red;}
+	img:not(:target){border: 2px solid yellow;}
+	img:not(:target){
+			animation:notTarget 5s 1;
+			-webkit-animation:notTarget 5s 1;
+		}
+	@-webkit-keyframes notTarget{
+		0%{width: 800px;}
+		100%{width: 400px;}
+	}
+	@keyframes notTarget{
+		0%{width: 800px;}
+		100%{width: 400px;}
+	}
+	@-moz-keyframes notTarget{
+		0%{width: 800px;}
+		100%{width: 400px;}
+	}
+	</style>
+</head>
+<body>
+<a href="#img1">图1</a>
+<a href="#img2">图2</a>
+<a href="#img3">图3</a>
+<a href="#img4">图4</a>
+<a href="#img5">图5</a>
+
+<img id="img1" src="http://p1.bpimg.com/576696/1c16ac1e69caff3a.jpg" alt="">
+<img id="img2" src="http://p1.bpimg.com/576696/386e4a5189fdc0a6.jpg" alt="">
+<img id="img3" src="http://p1.bpimg.com/576696/cdbcb7e403358881.jpg" alt="">
+<img id="img4" src="http://p1.bpimg.com/576696/f71daaee6e2fdaf8.jpg" alt="">
+<img id="img5" src="http://p1.bpimg.com/576696/2e26477499566853.jpg" alt="">
+
+</body>
+</html>

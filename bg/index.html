@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>背景切换</title>
+	<style type="text/css">
+		/* 当前效果是正常的，但有以下2个问题 */
+
+		/* 问题1：
+		当：.bg的position不用fixed，用absolute(Line23)；.body加overflow:hidden(Line17)
+		时；图2的变换效果时会出错；浏览器窗口<920px(body的min-width)时不能保证所有ul都显示，为什么？*/
+
+		/* 问题2：
+		为什么选中任意圆形图标切换背景时，.bg:not(:target)(Line165)只选中当前最顶的背景，而不会选中其他当前没有活动的.bg呢？*/
+
+		html,body{
+			padding:0;
+			margin:0;
+			width: 100%;
+			height: 100%;
+			/*overflow: hidden;*//* .bg用absolute时不用hidden会出现滚动条 */
+			/* 问题1*/
+		}
+		body{min-width: 920px;position: relative;}
+		.bg{
+			width: 100%;
+			height: 100%;
+			/*position: absolute;*/ /* 因为绝对定位时是影响html文档的？ */
+			/* 问题1*/
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			left: 0;
+		}
+		/*页面基础样式*/
+		div.wrap{
+			position: absolute;
+			bottom: 20px;
+			left: 50%;
+			font-size: 0;
+			width: 910px;
+			margin-left: -455px;
+			z-index: 9999;
+		}
+		a{
+			margin: 0;
+			display: inline-block;
+			width: 170px;
+			vertical-align: top;
+			font-size: 18px;
+			position: relative;
+			border: 2px solid #fff;
+			padding: 65px 0 10px;
+			margin-left: 10px;
+			text-align: center;
+			text-shadow: 1px 1px 1px #000;
+			text-decoration: none;
+		}
+		h3{
+			color: #fff;
+			margin: 0;
+			font-size: 18px;
+		}
+		div.pic,div.mask{
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			border: 5px solid #fff;
+			position: absolute;
+			top: -55px;
+			left: 30px;
+			cursor: pointer;
+		}
+		div.mask{
+			background-color: rgba(0,0,0,.3);
+		}
+		.mask:hover{
+			background-color: rgba(0,0,0,0);
+		}
+		a:nth-child(1){
+			background-color: #f89e9e;
+			margin-left: 0;
+		}
+		a:nth-child(2){
+			background-color: #8ed4f9;
+		}
+		a:nth-child(3){
+			background-color: #d9a0d8;
+		}
+		a:nth-child(4){
+			background-color: #a6f4c2;
+		}
+		a:nth-child(5){
+			background-color: #ecb892;
+		}
+		div.bg:nth-child(1),
+		a:nth-child(1) .pic{
+			background: url(http://p1.bpimg.com/576696/1c16ac1e69caff3a.jpg) center no-repeat;
+			background-size: cover;
+		}
+		div.bg:nth-child(2),
+		a:nth-child(2) .pic{
+			background: url(http://p1.bpimg.com/576696/386e4a5189fdc0a6.jpg) center no-repeat;
+			background-size: cover;
+		}
+		div.bg:nth-child(3),
+		a:nth-child(3) .pic{
+			background: url(http://p1.bpimg.com/576696/cdbcb7e403358881.jpg) center no-repeat;
+			background-size: cover;
+		}
+		div.bg:nth-child(4),
+		a:nth-child(4) .pic{
+			background: url(http://p1.bpimg.com/576696/f71daaee6e2fdaf8.jpg) center no-repeat;
+			background-size: cover;
+		}
+		div.bg:nth-child(5),
+		a:nth-child(5) .pic{
+			background: url(http://p1.bpimg.com/576696/2e26477499566853.jpg) center no-repeat;
+			background-size: cover;
+		}
+		/* 动画 */
+		.slideLeft:target{
+			z-index: 10;
+			animation:slideLeft 1s 1;
+			-webkit-animation:slideLeft 1s 1;
+		}
+		@-webkit-keyframes slideLeft{
+			from{left: -100%;}
+			to{left: 0;}
+		}
+		@keyframes slideLeft{
+			from{left: -100%;}
+			to{left: 0;}
+		}
+		@-moz-keyframes slideLeft{
+			from{left: -100%;}
+			to{left: 0;}
+		}
+		.slideBottom:target{
+			z-index: 10;
+			animation:slideBottom 1s 1;
+			-webkit-animation:slideBottom 1s 1;
+		}
+		@-webkit-keyframes slideBottom{
+			0%{top: 100%}
+			100%{top: 0;}
+		}
+		@keyframes slideBottom{
+			0%{top: 100%}
+			100%{top: 0;}
+		}
+		@-moz-keyframes slideBottom{
+			0%{top: 100%}
+			100%{top: 0;}
+		}
+		.zoomIn:target{
+			z-index: 10;
+			animation:zoomIn 1s 1;
+			-webkit-animation:zoomIn 1s 1;
+		}
+		@-webkit-keyframes zoomIn{
+			0%{transform: scale(0.1);}
+			100%{transform: scale(1);}
+		}
+		@keyframes zoomIn{
+			0%{transform: scale(0.1);}
+			100%{transform: scale(1);}
+		}
+		@-moz-keyframes zoomIn{
+			0%{transform: scale(0.1);}
+			100%{transform: scale(1);}
+		}
+		.zoomOut:target{
+			z-index: 10;
+			animation:zoomOut 1s 1;
+			-webkit-animation:zoomOut 1s 1;
+		}
+		@-webkit-keyframes zoomOut{
+			0%{transform: scale(2);}
+			100%{transform: scale(1);}
+		}
+		@keyframes zoomOut{
+			0%{transform: scale(2);}
+			100%{transform: scale(1);}
+		}
+		@-moz-keyframes zoomOut{
+			0%{transform: scale(2);}
+			100%{transform: scale(1);}
+		}
+		.rotate:target{
+			z-index: 10;
+			animation:rotate 1s 1;
+			-webkit-animation:rotate 1s 1;
+		}
+		@-webkit-keyframes rotate{
+			0%{transform: rotate(-360deg) scale(0.1);}
+			100%{transform: rotate(0) scale(1);}
+		}
+		@keyframes rotate{
+			0%{transform: rotate(-360deg) scale(0.1);}
+			100%{transform: rotate(0) scale(1);}
+		}
+		@-moz-keyframes rotate{
+			0%{transform: rotate(-360deg) scale(0.1);}
+			100%{transform: rotate(0) scale(1);}
+		}
+		/* 当前显示的图片 */
+		/* 问题2：为什么不会选中所有非活动的.bg呢？ */
+		.bg:not(:target){
+			animation:notTarget 1s 1;
+			-webkit-animation:notTarget 1s 1;
+		}
+		/* 当前显示的图片由于设置了相同时长的动画，在整个动画阶段z-index都大于其他没选中图片，小于正选中的图片，因此会有正选中图片出现在上方的效果 */
+		@-webkit-keyframes notTarget{
+			0%{z-index: 5}
+			100%{z-index: 5}
+		}
+		@keyframes notTarget{
+			0%{z-index: 5}
+			100%{z-index: 5}
+		}
+		@-moz-keyframes notTarget{
+			0%{z-index: 5}
+			100%{z-index: 5}
+		}
+	</style>
+</head>
+<body>
+<div class="bg slideLeft" id="bg1"></div>
+<div class="bg slideBottom" id="bg2"></div>
+<div class="bg zoomIn" id="bg3"></div>
+<div class="bg zoomOut" id="bg4"></div>
+<div class="bg rotate" id="bg5"></div>
+
+<div class="wrap">
+	<a href="#bg1">
+		<h3>Lorem onsectetur adipisicing elit</h3>
+		<div class="pic"></div>
+		<div class="mask"></div>
+	</a>
+	<a href="#bg2">
+		<h3>Lorem ipsum dolor sit ameectetur adipisicing elit</h3>
+		<div class="pic"></div>
+		<div class="mask"></div>
+	</a>
+	<a href="#bg3">
+		<h3>Lorem ipsum dolor sit consectetur adipg elitconsectetur</h3>
+		<div class="pic"></div>
+		<div class="mask"></div>
+	</a>
+	<a href="#bg4">
+		<h3>Lorem consectetur adipisicing esciunt dooribus molesntium</h3>
+		<div class="pic"></div>
+		<div class="mask"></div>
+	</a>
+	<a href="#bg5">
+		<h3>Lorem ipsum voluptates laboriosam</h3>
+		<div class="pic"></div>
+		<div class="mask"></div>
+	</a>
+</div>
+
+</body>
+</html>
