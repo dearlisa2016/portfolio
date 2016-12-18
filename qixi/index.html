@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>七夕</title>
+	<style type="text/css">
+		img{display: block;}
+		div{overflow: hidden;}
+		.pic{border: 3px solid #f23f9e;cursor: pointer;}
+		.pic11{width: 240px;height: 239px;}
+		.pic21{width: 240px;height: 112px;}
+		.pic12{width: 385px;height: 178px;float: left;}
+		.pic13{width: 306px;height: 178px;float: right;}
+		.pic22{width: 201px;height: 173px;float: left;}
+		.pic23{width: 314px;height: 173px;float: left;}
+		.pic24{width: 170px;height: 173px;float: right;}
+		.col1{float: left;}
+		.col2{float: right;}
+		.wrap{
+			border: 5px solid #f23f9e;
+			width: 949px;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="col col1">
+			<div class="row">
+				<div class="pic pic11">
+					<img src="img/r1c1.jpg" alt="">
+					<img src="img/r1c1_.jpg" alt="">
+				</div>
+			</div>
+			<div class="row">
+				<div class="pic pic21">
+					<img src="img/r2c1.jpg" alt="">
+					<img src="img/r2c1_.jpg" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="col col2">
+			<div class="row">
+				<div class="pic pic12">
+					<img src="img/r1c2.jpg" alt="">
+					<img src="img/r1c2_.jpg" alt="">
+				</div>
+				<div class="pic pic13">
+					<img src="img/r1c3.jpg" alt="">
+					<img src="img/r1c3_.jpg" alt="">
+				</div>
+			</div>
+			<div class="row">
+				<div class="pic pic22">
+					<img src="img/r2c2.jpg" alt="">
+					<img src="img/r2c2_.jpg" alt="">
+				</div>
+				<div class="pic pic23">
+					<img src="img/r2c3.jpg" alt="">
+					<img src="img/r2c3_.jpg" alt="">
+				</div>
+				<div class="pic pic24">
+					<img src="img/r2c4.jpg" alt="">
+					<img src="img/r2c4_.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	$(".pic").hover(function(){
+		$(this).find("img").eq(0).stop().animate({"margin-top":-$(this).find("img").eq(0).height()},500);
+	},function(){
+		$(this).find("img").eq(0).stop().animate({"margin-top":0},500)
+	})
+</script>
+</body>
+</html>
