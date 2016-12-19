@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原生JS轮播图</title>
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+			font-family: SimSun; /*for箭头样式*/
+		}
+		.ad{
+			width: 520px;
+			height: 280px;
+			position: relative;
+		}
+		.ad .list{
+			width: 520px;
+			height: 280px;
+		}
+		.ad .list img{
+			display: block;
+			float: left;
+			position: absolute;
+			z-index: 0;
+			opacity: 0;
+			filter: alpha(opacity=0);
+			/*transition: opacity 1.5s;
+			-moz-transition: opacity 1.5s;
+			-webkit-transition: opacity 1.5s;
+			-o-transition: opacity 1.5s;*/
+			/* 如果不需要兼容IE9，直接用L26-L30和L36-L40代码来实现透明度渐变即可，否则用L */
+		}
+		/* 选中图片样式 */
+		.ad .list .selected{
+			z-index: 1;
+			opacity: 1;
+			filter: alpha(opacity=100);
+			/*transition: opacity 1.5s;
+			-moz-transition: opacity 1.5s;
+			-webkit-transition: opacity 1.5s;
+			-o-transition: opacity 1.5s;*/
+		}
+		.ad .btn{
+			position: absolute;
+			bottom: 5px;
+			left: 10px;
+			text-align: center;
+			z-index: 2;
+		}
+		.ad .btn span{
+			display: inline-block;
+			height: 20px;
+			width: 20px;
+			background-color: #fff;
+			border-radius: 50%;
+			opacity: 0.7;
+			cursor: pointer;
+		}
+		/* 选中按钮样式 */
+		.ad .btn .on{
+			background-color: #000;
+			opacity: 0.8;
+			color: #fff;
+		}
+		.ad .arrow{
+			display: block;
+			width: 30px;
+			text-decoration: none;
+			background-color: #000;
+			text-align: center;
+			font-size: 40px;
+			position: absolute;
+			top: 100px;
+			color: #fff;
+			opacity: 0;
+			z-index: 2;
+		}
+		.ad:hover .arrow{
+			opacity: 0.5;
+		}
+		.ad .arrow:hover{
+			opacity: 1;
+		}
+		.ad #prev{
+			left: 5px;
+		}
+		.ad #next{
+			right: 5px;
+		}
+		.clearfix:after{
+			content:" ";
+			display:table;
+			clear:both;
+		}
+
+
+	</style>
+</head>
+<body>
+<div id="ad" class="ad">
+	<div id="list" class="list clearfix">
+		<img class="selected" src="img/photo1.jpg" alt="轮播图">
+		<img src="img/photo2.jpg" alt="轮播图">
+		<img src="img/photo3.jpg" alt="轮播图">
+		<img src="img/photo4.jpg" alt="轮播图">
+		<img src="img/photo5.jpg" alt="轮播图">
+	</div>
+	<div id="btns" class="btn">
+		<span class="on">1</span>
+		<span>2</span>
+		<span>3</span>
+		<span>4</span>
+		<span>5</span>
+	</div>
+	<a href="javascript:;" id="prev" class="arrow">&lt;</a>
+	<a href="javascript:;" id="next" class="arrow">&gt;</a>
+</div>
+
+<script type="text/javascript">
+var ad=document.getElementById('ad');
+var imgs=document.getElementById('list').getElementsByTagName('img');
+var btns=document.getElementById('btns').getElementsByTagName('span');
+var prev=document.getElementById('prev');
+var next=document.getElementById('next');
+
+var n=1;//想要显示的图片序号
+
+//3.修改代码：将第一步和第二步中代码相似的部分合并写为一个函数show()
+//功能：取消当前图片和按钮，显示目标图片和按钮
+function show(q){
+	for(k=0;k<btns.length;k++){
+		if(btns[k].className=="on"){
+			fadeOut(imgs[k]);
+			btns[k].className="";
+			imgs[k].className="";
+			break;  //找到了目标后就跳出循环
+		}
+	}
+	imgs[q].className="selected";
+	fadeIn(imgs[q]);
+	btns[q].className="on";
+}
+
+
+//2.自动轮播函数：nextPic用于找到选中按钮和图片，将其下一张添加选中的相应类名
+//2.自动轮播计时器：setInterval
+function nextPic(){
+	if(n==btns.length){
+		n=0;
+	}
+	show(n);
+	n++;
+}
+//5.给向左箭头写一个函数prevPic，用于显示上一张图片
+//初始n=1，表示自动播放目标显示的是imgs[1]，但点击向左箭头则应该显示最后一张，即imgs[4]
+//所以当n==1时，应设置n=4，但这样的话n的最小值就是1，则一直点击上一张按钮时，无法显示imgs[0]和imgs[1]
+//所以设置n==1时，n=btn.length+1;show(n-2);n--
+function prevPic(){
+	if(n==1){
+		n=btns.length+1;
+	}
+	show(n-2);
+	n--;
+}
+var m=setInterval(nextPic, 3000);
+
+//4.将图片和左右箭头鼠标悬停时清除计时器，写成函数pause
+//4.将图片和左右箭头鼠标离开时重启计数器，写成函数restart
+function pause(){
+	clearInterval(m);
+}
+function restart(){
+	m=setInterval(nextPic,3000)
+}
+
+//1.手动轮播：把选中按钮和图片添加相应类名，把原来选中的按钮和图片取消相应类名
+for(i=0;i<btns.length;i++){
+	btns[i].index=i;//给每个按钮添加一个序号
+	btns[i].onmouseover=function(){
+		clearInterval(m);
+		if(this.className=="on"){return;}//选中当前已选中的，则不操作
+		show(this.index);
+	}
+	btns[i].onmouseout=function(){
+		n=this.index+1;
+		m=setInterval(nextPic, 3000);
+	}
+	imgs[i].onmouseover=pause;
+	imgs[i].onmouseout=restart;
+}
+//6.左右箭头
+next.onmouseover=pause;
+next.onmouseout=restart;
+next.onclick=nextPic;
+prev.onmouseover=pause;
+prev.onmouseout=restart;
+prev.onclick=prevPic;
+
+
+//透明度渐变
+function setOpacity(elem,level){
+	if(elem.filters){ //IE9及以下有这个属性
+		elem.style.filter="alpha(opacity="+level+")";
+	}else{
+		elem.style.opacity=level/100;
+	}
+}
+
+function fadeIn(elem){
+	setOpacity(elem,0); //初始透明
+	for(var i=0;i<=20;i++){
+		(function(){
+			var level=i*5;
+			setTimeout(function(){
+				setOpacity(elem,level)
+			}, i*30);
+		})(i);  //传入参数i，函数立即执行
+	}
+}
+
+function fadeOut(elem){
+	for(var i=0;i<=20;i++){
+		(function(){
+			var level=100-i*5;
+			setTimeout(function(){
+				setOpacity(elem,level)
+			}, i*30);
+		})(i);
+	}
+}
+
+
+</script>
+</body>
+</html>
