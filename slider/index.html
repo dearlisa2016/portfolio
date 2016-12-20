@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播动画--谢丽莎</title>
+	<style type="text/css">
+		body{font-family: SimSun;} /*for箭头样式*/
+		body,ul,li{margin: 0;padding: 0;list-style: none;}
+		.ad li{float: left;}
+		div.ad{position: relative;width: 520px;height: 280px;overflow: hidden;}
+		.ad ul:after{content: '';display: table;clear: both;}
+		.ad a{text-decoration: none;text-align: center;}
+		.ad .imgs{width: 3640px;height: 280px;position: absolute;top: 0;left: -520px;z-index: 2;}
+		.ad .imgs li{width: 520px;height: 280px;}
+		.ad .ad{width: 520px;height: 280px;overflow: hidden;position:.relative;}
+		.ad .btns{position: absolute;top: 250px;left: 10px;z-index: 10;}
+		.ad .btns li a{display: inline-block;width: 20px;height: 20px;border-radius: 50%;background-color: rgba(255,255,255,.9);color: #000;}
+		.ad .btns li .on{background-color: rgba(0,0,0,.7);color: #fff;}
+		.ad .btns li+li{margin-left: 5px;}
+		.ad a.arrow{position: absolute;font-size: 50px;color: #fff;display: none;background-color: rgba(0,0,0,.3);z-index: 10;}
+		.ad:hover a.arrow{display: block;}
+		.ad a.arrow:hover{background-color: rgba(0,0,0,.7);}
+		.ad a.prev{left: 0;top: 100px;}
+		.ad a.next{right: 0px;top: 100px;}
+		.ad div.ad:hover .arrow{display: block;}
+	</style>
+</head>
+<body>
+<!-- 1.完成HTML和CSS -->
+<div class="ad" id="ad">
+	<ul class="imgs" id="imgs">
+		<li><a href="#"><img src="img/photo5.jpg" alt=""></a></li>
+		<li><a href="#"><img src="img/photo1.jpg" alt=""></a></li>
+		<li><a href="#"><img src="img/photo2.jpg" alt=""></a></li>
+		<li><a href="#"><img src="img/photo3.jpg" alt=""></a></li>
+		<li><a href="#"><img src="img/photo4.jpg" alt=""></a></li>
+		<li><a href="#"><img src="img/photo5.jpg" alt=""></a></li>
+		<li><a href="#"><img src="img/photo1.jpg" alt=""></a></li>
+	</ul>
+	<ul class="btns" id="btns">
+		<li><a href="#" class="on">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+	</ul>
+	<a href="#" class="arrow prev" id="prev">&lt;</a>
+	<a href="#" class="arrow next" id="next">&gt;</a>
+</div>
+<script type="text/javascript">
+
+//声明变量
+var ad=document.getElementById("ad"); //获取外容器
+var imgs=document.getElementById("imgs"); //获取图片容器
+var img=document.getElementsByTagName("img")[0]; //获取图片
+var imgW=img.offsetWidth;  //获取图片宽度
+var btns=document.getElementById("btns"); //获取按钮容器
+var btn=btns.getElementsByTagName("a"); //获取图片按钮集合
+var next=document.getElementById("next"); //获取后一张箭头
+var prev=document.getElementById("prev"); //获取前一张箭头
+
+var iniPos=imgs.offsetLeft;  //元素初始位置
+var targetPos;//元素目标位置
+var count=50;  //总共需要移动次数
+var current=0;  //当前移动次数
+var n=1;
+//接下来要显示的图片序号，初始化默认接下来显示第2张，即序号1
+var timer2; //自动轮播定时器
+
+
+//===2.鼠标移入按钮，显示对应图片和按钮===
+
+for(var i=0;i<btn.length;i++){
+	btn[i].index=i;
+	btn[i].onmouseover=function(){
+	showPic(this.index);  //this.index表示图片序号
+	showBtn(this.index);
+	};
+	btn[i].onmouseout=function(){n=this.index+1;}
+	//鼠标移出要更新n值，点击下一张才会正确
+}
+
+//显示图片
+function showPic(x){ //参数x表示：显示的图片序号
+	targetPos=-(x+1)*520;
+	//首尾两张互相切换时的优化
+	if(iniPos==-520&&targetPos==-2600){
+		iniPos=-3120;
+	}
+	if(iniPos==-2600&&targetPos==-520){
+		iniPos=0;
+	}
+	var timer1=setInterval(function(){
+		if(current<=50){
+			imgs.style.left=(targetPos-iniPos)*current/count+iniPos+'px';
+			//@todo IE10及以下这个值计算有误差
+			current++;
+		}
+		else{
+			clearInterval(timer1);
+			current=0;
+			iniPos=imgs.offsetLeft;
+		}
+	},1000/60)
+}
+
+//显示按钮
+function showBtn(y){
+	for(var j=0;j<btn.length;j++){
+		if(btn[j].className="on"){
+			btn[j].className="";
+		}
+	}
+	btn[y].className="on";
+}
+
+//===3.左右箭头显示前后图片===
+function nextPic(){
+	 if(n==btn.length){ //滚动到最后1张时，回到第1张(即假的最后1张)
+	 	iniPos=0;
+		n=0;
+	 }
+	showPic(n);
+	showBtn(n);
+	n++;
+}
+function prevPic(){
+	if(n==1){  //初始时按前一张按钮，回到最后1张(即假的第1张)
+		iniPos=-3120;
+		n=6;
+	}
+	showPic(n-2);
+	showBtn(n-2);
+	n--;
+}
+next.onclick=nextPic;
+prev.onclick=prevPic;
+
+//===4.自动轮播===
+start();
+//突然又不叠加时间了
+
+function pause(){clearInterval(timer2);}
+function start(){timer2=setInterval(nextPic,3000);}
+
+ad.onmouseover=pause;
+ad.onmouseout=start;
+
+
+
+</script>
+</body>
+</html>
