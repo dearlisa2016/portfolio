@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<!-- 20161108版本v3：在v2表格基础上修改IE8 bug-->
+<body>
+<div class="header">
+	<img src="img/taobao_logo.gif" alt="淘宝网" class="logo">
+	<div class="nav">
+		<span>您的位置：</span><a href="#">首页</a>&gt;<a href="#">我的淘宝</a>&gt;<span>我的购物车</span>
+	</div>
+	<ul class="clearfix">
+		<li class="left"></li>
+		<li class="flow-on">1. 查看购物车</li>
+		<li class="arrow-on"></li>
+		<li class="flow">2. 确认订单信息</li>
+		<li class="arrow"></li>
+		<li class="flow">3. 付款到支付宝</li>
+		<li class="arrow"></li>
+		<li class="flow">4. 确认收货</li>
+		<li class="arrow"></li>
+		<li class="flow">5. 评价</li>
+		<li class="right"></li>
+	</ul>
+</div>
+
+<div class="content">
+	<table class="cart"  cellspacing="0" border="0" cellpadding="0" id="cartTable">
+		<thead>
+			<tr>
+				<th><input type="checkbox" name="" id="checkAll"><label for="checkAll">全选</label></th>
+				<th colspan="2">店铺宝贝</th>
+				<th>单件积分</th>
+				<th>单价（元）</th>
+				<th>数量</th>
+				<th>小计（元）</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="seller">
+				<td colspan="8">&nbsp;店铺：<a href="#" id="">纤巧百媚时尚鞋坊</a>&nbsp;卖家：<a href="#">纤巧百媚</a><span class="contact"></span></td>
+			</tr>
+			<tr class="item">
+				<td><input class="check" type="checkbox" name="" id=""></td>
+				<td><img src="img/taobao_cart_01.jpg" alt="坡跟公主靴子"></td>
+				<td class="desc"><a href="#">日韩流行风时尚美眉最爱独特米字拼图金属坡跟公主靴子黑色</a><br>颜色：棕色 尺码：37<br>保障：<i class="cert1"></i></td>
+				<td class="credit">3</td>
+				<td class="price">138.55</td>
+				<td class="quantity"><i class="minus"></i><input type="text" name="" id="" value="1"  maxlength="3" min="1" max="999" class="num
+				"><i class="add"></i></td>
+				<td class="amount"></td>
+				<td class="operate"><a href="#" class="del">删除</a></td>
+			</tr>
+			<tr class="seller">
+				<td colspan="8">&nbsp;店铺：<a href="#" id="">香港我的美丽日记</a>&nbsp;卖家：<a href="#">lokemick2009</a><span class="contact"></span></td>
+			</tr>
+			<tr class="item">
+				<td><input  class="check" type="checkbox" name="" id=""></td>
+				<td><img src="img/taobao_cart_02.jpg" alt="香奈儿炫亮魅力唇膏"></td>
+				<td class="desc"><a href="#">Chanel/香奈儿/香奈尔炫亮魅力唇膏3.5g</a><br>保障：<i class="cert1"></i><i class="cert2"></i></td>
+				<td class="credit">5</td>
+				<td class="price">265.00</td>
+				<td class="quantity"><i class="minus"></i><input type="text" name="" id="" value="1"  maxlength="3" min="1" max="999" class="num"><i class="add"></i></td>
+				<td class="amount"></td>
+				<td><a href="#" class="del">删除</a></td>
+			</tr>
+			<tr class="seller">
+				<td colspan="8">&nbsp;店铺：<a href="#" id="">实体经营</a>&nbsp;卖家：<a href="#">林颜店铺</a><span class="contact"></span></td>
+			</tr>
+			<tr class="item">
+				<td><input class="check" type="checkbox" name="" id=""></td>
+				<td><img src="img/taobao_cart_03.jpg" alt="蝶妆海蓝清盈粉底液"></td>
+				<td class="desc"><a href="#">蝶妆海蓝清盈粉底液10#（象牙白）</a><br>保障：<i class="cert1"></i><i class="cert2"></i></td>
+				<td class="credit">2</td>
+				<td class="price">85.00</td>
+				<td class="quantity"><i class="minus"></i><input type="text" name="" id="" value="1"  maxlength="3" min="1" max="999" class="num"><i class="add"></i></td>
+				<td class="amount"></td>
+				<td><a href="#" class="del">删除</a></td>
+			</tr>
+			<tr class="seller">
+				<td colspan="8">&nbsp;店铺：<a href="#" id="">红豆豆的小屋</a>&nbsp;卖家：<a href="#">淘宝豆豆</a><span class="contact"></span></td>
+			</tr>
+			<tr class="item">
+				<td><input class="check" type="checkbox" name="" id=""></td>
+				<td><img src="img/taobao_cart_04.jpg" alt="LilyBell化妆棉"></td>
+				<td class="desc"><a href="#">相宜促销专供 大S推荐 最好用的LilyBell化妆棉</a><br>保障：<i class="cert1"></i></td>
+				<td class="credit">1</td>
+				<td class="price">38.00</td>
+				<td class="quantity"><i class="minus"></i><input type="text" name="" id="" value="1"  maxlength="3" min="1" max="999" class="num"><i class="add"></i></td>
+				<td class="amount"></td>
+				<td><a href="#" class="del">删除</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+<div class="footer">
+
+	<div><input type="button" value="删除所选" id="delSel"></div>
+	<div class="buy">
+		商品总价（不含运费）：<span id="totalAmo"></span>元<br>
+		可获积分<span id="totalCre"></span>点<input type="image" src="img/taobao_subtn.jpg" alt="">
+	</div>
+</div>
+<script type="text/javascript" src="js/main.js"></script>
+</div>
+</body>
+</html>

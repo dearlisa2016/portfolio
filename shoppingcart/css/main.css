@@ -1,0 +1,239 @@
+/*=========
+清除浮动
+=========*/
+
+.clearfix:before,
+.clearfix:after{
+    content:" ";
+    display:table;
+    /*before预防浏览器margin顶部空白崩溃*/
+}
+
+.clearfix:after{
+    clear:both;
+}
+
+.clearfix{
+*zoom:1
+}
+/*用于兼容IE6 IE7*/
+
+/*=========
+自定义页面样式
+=========*/
+
+/* 通用 */
+ul,li{
+    margin:0;
+    padding:0;
+}
+
+li{
+    list-style:none;
+}
+
+body{
+    font-size:12px;
+    width: 805px;
+    margin: 0 auto;
+}
+
+a{
+  color:#1965B3;
+  text-decoration:none;
+}
+
+a:hover, a:active{
+    color:#FF6600;
+    text-decoration:underline;
+}
+
+/* header */
+.header .logo{
+    margin: 10px 0;
+}
+
+.header .nav,
+.header ul{
+    margin-bottom: 10px;
+}
+
+.header ul li{
+    float: left;
+    font-size: 14px;
+    line-height: 23px;
+    height: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.header ul li.flow-on{
+    background-color:#FF6600;
+    width: 130px;
+    color: #fff;
+}
+
+.header ul li.flow{
+    background-color: #e4e4e4;
+    width: 150px;
+    color: #000;
+}
+
+.header ul li.left{
+    background: url(../img/taobao_bg.png) no-repeat -12px -92px;
+    width: 3px;
+}
+
+.header ul li.right{
+    background: url(../img/taobao_bg.png) no-repeat -12px -138px;
+    width: 3px;
+}
+
+.header ul li.arrow-on{
+    background-color:#FF6600;
+ /*   background: url(../img/taobao_bg.png) no-repeat 0px 0px;*/
+    background-image:url(../img/taobao_bg.png);
+    background-repeat:no-repeat;
+    background-position:0px 0px;
+    width: 13px;
+}
+
+.header ul li.arrow{
+    background-color: #e4e4e4;
+    background-image:url(../img/taobao_bg.png);
+    background-repeat:no-repeat;
+    background-position:0px 0px;
+    width:13px;
+}
+
+/* content */
+.content{
+    width: 100%;
+}
+
+.content .cart{
+    width: 100%;
+     border-collapse:collapse;
+     line-height: 20px;
+}
+
+.cart thead th{
+    border-bottom: 3px solid #A7CBFF;
+    font-weight: normal;
+    line-height: 25px;
+}
+
+.cart tbody .seller{
+    line-height: 35px;
+}
+
+.cart tbody .seller .contact{
+    display: inline-block;
+    background: url(../img/taobao_relation.jpg) no-repeat 0 0;
+    width: 69px;
+    height: 21px;
+    vertical-align: middle;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.cart tbody .item{
+    background-color: #E2F2FF;
+}
+
+.cart tbody tr.on{
+    background-color: #d2f2ff;
+}
+
+.cart tbody .item td{
+    text-align: center;
+    border-left: 1px solid #fff;
+    padding: 5px;
+}
+
+.cart tbody .item td:first-child{
+    border-left:none;
+}
+
+.cart tbody .item .desc{
+    text-align: left;
+    border-left: none;
+}
+
+.cart tbody .item td img{
+    vertical-align: middle;
+}
+
+.cart tbody .item .desc .cert1{
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    background: url(../img/taobao_icon_01.jpg) no-repeat 0 0;
+}
+
+.cart tbody .item .desc .cert2{
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    background: url(../img/taobao_icon_02.jpg) no-repeat 0 0;
+    margin-left: 3px;
+}
+
+.cart tbody .item .quantity input{
+    width: 30px;
+    height: 20px;
+    line-height: 20px;
+    padding: 1px 0px;
+    border: 1px solid #999;
+    text-align: center;
+    margin: 0 2px;
+}
+
+.cart tbody .item .quantity .minus{
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: url(../img/taobao_minus.jpg) no-repeat 0 0;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.cart tbody .item .quantity .add{
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: url(../img/taobao_adding.jpg) no-repeat 0 0;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+/* footer */
+.footer div:first-child{
+    float: left;
+    height: 70px;
+}
+
+.footer div:first-child input{
+    margin-top: 25px;
+}
+
+.footer div.buy{
+    float: right;
+    line-height: 20px;
+    height: 70px;
+    text-align: right;
+    position: relative;
+}
+
+.footer div.buy input{
+    display: block;
+    position: absolute;
+    right: 0;
+}
