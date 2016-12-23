@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>轮播动画--谢丽莎</title>
+	<title>轮播动画</title>
 	<style type="text/css">
 		body{font-family: SimSun;} /*for箭头样式*/
 		body,ul,li{margin: 0;padding: 0;list-style: none;}
@@ -54,6 +54,7 @@ var ad=document.getElementById("ad"); //获取外容器
 var imgs=document.getElementById("imgs"); //获取图片容器
 var img=document.getElementsByTagName("img")[0]; //获取图片
 var imgW=img.offsetWidth;  //获取图片宽度
+//var imgN=imgs
 var btns=document.getElementById("btns"); //获取按钮容器
 var btn=btns.getElementsByTagName("a"); //获取图片按钮集合
 var next=document.getElementById("next"); //获取后一张箭头
@@ -66,6 +67,7 @@ var current=0;  //当前移动次数
 var n=1;
 //接下来要显示的图片序号，初始化默认接下来显示第2张，即序号1
 var timer2; //自动轮播定时器
+// var animated=false; //当前动画状态
 
 
 //===2.鼠标移入按钮，显示对应图片和按钮===
@@ -73,6 +75,7 @@ var timer2; //自动轮播定时器
 for(var i=0;i<btn.length;i++){
 	btn[i].index=i;
 	btn[i].onmouseover=function(){
+	// if(animated){return;}
 	showPic(this.index);  //this.index表示图片序号
 	showBtn(this.index);
 	};
@@ -82,7 +85,10 @@ for(var i=0;i<btn.length;i++){
 
 //显示图片
 function showPic(x){ //参数x表示：显示的图片序号
-	targetPos=-(x+1)*520;
+	// animated=true;
+	targetPos=-(x+1)*520; // target -1040;ini -520====target -520 ini -520
+	//clearInterval(timer1);  //这句话不知道为什么不能清除定时器
+	console.log("targetPos="+targetPos);
 	//首尾两张互相切换时的优化
 	if(iniPos==-520&&targetPos==-2600){
 		iniPos=-3120;
@@ -94,12 +100,16 @@ function showPic(x){ //参数x表示：显示的图片序号
 		if(current<=50){
 			imgs.style.left=(targetPos-iniPos)*current/count+iniPos+'px';
 			//@todo IE10及以下这个值计算有误差
-			current++;
+			current++;  //问题：当动画正在进行，鼠标突然移入原来按钮时，会迅速切换到该图片而无动画。
+			//因为会targetPos已经重置，但是setInterval会继续执行，但是以新的targetPos，所以会立即回到原来的图。
+			console.log(current);
 		}
 		else{
+			console.log("执行结束");
 			clearInterval(timer1);
 			current=0;
 			iniPos=imgs.offsetLeft;
+			// animated=false;
 		}
 	},1000/60)
 }
