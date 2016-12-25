@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1225</title>
+	<style type="text/css">
+		div{
+			width: 200px;
+			height: 300px;
+			transition: all 2s;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#front{
+			background-color: red;
+			transform: rotateY(0deg);
+		}
+		#back{
+			background-color: yellow;
+			transform: rotateY(180deg);
+		}
+		#wrap .side{
+			-webkit-backface-visibility:hidden;
+		}
+		.change #front{
+			transform: rotateY(180deg);
+		}
+		.change #back{
+			transform: rotateY(0deg);
+		}
+	</style>
+</head>
+<body>
+<div class="" id="wrap">
+	<div class="side" id="front">我是正面</div>
+	<div class="side" id="back">我是背面</div>
+</div>
+<script type="text/javascript">
+	var wrap=document.getElementById("wrap");
+	var front=document.getElementById("front");
+	var back=document.getElementById("back");
+	wrap.onmouseover=function(){
+		wrap.className="change";
+	}
+	wrap.onmouseout=function(){
+		wrap.className="";
+	}
+</script>
+</body>
+</html>
