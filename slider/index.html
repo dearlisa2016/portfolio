@@ -62,20 +62,18 @@ var prev=document.getElementById("prev"); //获取前一张箭头
 
 var iniPos=imgs.offsetLeft;  //元素初始位置
 var targetPos;//元素目标位置
-var count=50;  //总共需要移动次数
+var count=20;  //总共需要移动次数
 var current=0;  //当前移动次数
 var n=1;
 //接下来要显示的图片序号，初始化默认接下来显示第2张，即序号1
 var timer2; //自动轮播定时器
-// var animated=false; //当前动画状态
 
 
-//===2.鼠标移入按钮，显示对应图片和按钮===
+//===2.鼠标点击按钮，显示对应图片和按钮===
 
 for(var i=0;i<btn.length;i++){
 	btn[i].index=i;
-	btn[i].onmouseover=function(){
-	// if(animated){return;}
+	btn[i].onclick=function(){
 	showPic(this.index);  //this.index表示图片序号
 	showBtn(this.index);
 	};
@@ -85,10 +83,7 @@ for(var i=0;i<btn.length;i++){
 
 //显示图片
 function showPic(x){ //参数x表示：显示的图片序号
-	// animated=true;
-	targetPos=-(x+1)*520; // target -1040;ini -520====target -520 ini -520
-	//clearInterval(timer1);  //这句话不知道为什么不能清除定时器
-	console.log("targetPos="+targetPos);
+	targetPos=-(x+1)*520;
 	//首尾两张互相切换时的优化
 	if(iniPos==-520&&targetPos==-2600){
 		iniPos=-3120;
@@ -97,19 +92,16 @@ function showPic(x){ //参数x表示：显示的图片序号
 		iniPos=0;
 	}
 	var timer1=setInterval(function(){
-		if(current<=50){
+		if(current<=20){
 			imgs.style.left=(targetPos-iniPos)*current/count+iniPos+'px';
 			//@todo IE10及以下这个值计算有误差
 			current++;  //问题：当动画正在进行，鼠标突然移入原来按钮时，会迅速切换到该图片而无动画。
 			//因为会targetPos已经重置，但是setInterval会继续执行，但是以新的targetPos，所以会立即回到原来的图。
-			console.log(current);
 		}
 		else{
-			console.log("执行结束");
 			clearInterval(timer1);
 			current=0;
 			iniPos=imgs.offsetLeft;
-			// animated=false;
 		}
 	},1000/60)
 }
@@ -155,7 +147,6 @@ function start(){timer2=setInterval(nextPic,3000);}
 
 ad.onmouseover=pause;
 ad.onmouseout=start;
-
 
 
 </script>
