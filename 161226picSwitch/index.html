@@ -47,17 +47,18 @@
 <script type="text/javascript" src="jquery-1.11.3.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		//兼容IE8及以下
+		//nth-child: 兼容IE8及以下
 		$(".wrap img:nth-child(2)").css("left","120px");
 		$(".wrap img:nth-child(3)").css("left","240px");
 		$(".wrap img:nth-child(4)").css("left","360px");
 		$(".wrap img:nth-child(5)").css("left","480px");
 
+		//鼠标移入图片事件
 		$(".wrap img").mouseover(function(){
 			var imgLeft=$(this).position().left;  //目标图片的当前left值
 			var targetLeft=$(this).index()*120; //目标图片应有的left值
 			if(imgLeft==targetLeft){  //说明只需移动目标的后几张图片
-				$(this).nextAll().each(function(){
+				$(this).nextAll().each(function(){ //获取后面的几张图片进行遍历
 					$(this).animate({
 						left:$(this).index()*120+600+"px" //600是图片展开增加的宽度
 					})
