@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手风琴切换效果</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.wrap{
+			width: 1200px;
+			height: 450px;
+			position: relative;
+			overflow: hidden;
+		}
+		.wrap img{
+			display: block;
+			width: 720px;
+			height: 450px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.wrap img:nth-child(5){
+			left: 480px;
+		}
+		.wrap img:nth-child(4){
+			left: 360px;
+		}
+		.wrap img:nth-child(3){
+			left: 240px;
+		}
+		.wrap img:nth-child(2){
+			left: 120px;
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<img src="img/img1.jpg" alt="">
+	<img src="img/img2.jpg" alt="">
+	<img src="img/img3.jpg" alt="">
+	<img src="img/img4.jpg" alt="">
+	<img src="img/img5.jpg" alt="">
+</div>
+<script type="text/javascript" src="jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//兼容IE8及以下
+		$(".wrap img:nth-child(2)").css("left","120px");
+		$(".wrap img:nth-child(3)").css("left","240px");
+		$(".wrap img:nth-child(4)").css("left","360px");
+		$(".wrap img:nth-child(5)").css("left","480px");
+
+		$(".wrap img").mouseover(function(){
+			var imgLeft=$(this).position().left;  //目标图片的当前left值
+			var targetLeft=$(this).index()*120; //目标图片应有的left值
+			if(imgLeft==targetLeft){  //说明只需移动目标的后几张图片
+				$(this).nextAll().each(function(){
+					$(this).animate({
+						left:$(this).index()*120+600+"px" //600是图片展开增加的宽度
+					})
+				})
+			}else{  //否则，需要移动目标和前几张图片（除了第一张）
+				$(".wrap img").slice(1,$(this).index()+1).each(function(){
+					$(this).animate({
+						left:$(this).index()*120+"px"
+					})
+				})
+			}
+		})
+	})
+
+</script>
+</body>
+</html>
