@@ -14,47 +14,94 @@
 			position: relative;
 			overflow: hidden;
 		}
-		.wrap img{
-			display: block;
+		.wrap .item{
 			width: 720px;
 			height: 450px;
 			position: absolute;
 			left: 0;
 			top: 0;
+			cursor: pointer;
 		}
-		.wrap img:nth-child(5){
+		.wrap .item img.bg{
+			display: block;
+			width: 720px;
+			height: 450px;
+		}
+		.wrap .item:nth-child(5){
 			left: 480px;
 		}
-		.wrap img:nth-child(4){
+		.wrap .item:nth-child(4){
 			left: 360px;
 		}
-		.wrap img:nth-child(3){
+		.wrap .item:nth-child(3){
 			left: 240px;
 		}
-		.wrap img:nth-child(2){
+		.wrap .item:nth-child(2){
 			left: 120px;
+		}
+		.wrap .item img.sketch{
+			display: block;
+			width: 90px;
+			height: 90px;
+			position: absolute;
+			left: 15px;
+			bottom: 80px;
+			border: 2px solid #999;
+			border-radius: 50%;
+			behavior:url(PIE.htc);
+		}
+		.wrap .item p{
+			margin: 0;
+			padding: 5px;
+			font-size: 20px;
+			color: #fff;
+			background-color: rgba(0,0,0,.5);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000);
+			position: absolute;
+			left: 20px;
+			bottom: 30px;
 		}
 	</style>
 </head>
 <body>
 <div class="wrap">
-	<img src="img/img1.jpg" alt="">
-	<img src="img/img2.jpg" alt="">
-	<img src="img/img3.jpg" alt="">
-	<img src="img/img4.jpg" alt="">
-	<img src="img/img5.jpg" alt="">
+	<div class="item">
+		<img class="bg" src="img/img1.jpg" alt="">
+		<img class="sketch" src="img/img1_.jpg" alt="">
+		<p>暖心咖香</p>
+	</div>
+	<div class="item">
+		<img class="bg" src="img/img2.jpg" alt="">
+		<img class="sketch" src="img/img2_.jpg" alt="">
+		<p>香栗可可</p>
+	</div>
+	<div class="item">
+		<img class="bg" src="img/img3.jpg" alt="">
+		<img class="sketch" src="img/img3_.jpg" alt="">
+		<p>无肉不欢</p>
+	</div>
+	<div class="item">
+		<img class="bg" src="img/img4.jpg" alt="">
+		<img class="sketch" src="img/img4_.jpg" alt="">
+		<p>白色恋人</p>
+	</div>
+	<div class="item">
+		<img class="bg" src="img/img5.jpg" alt="">
+		<img class="sketch" src="img/img5_.jpg" alt="">
+		<p>甜蜜夹心</p>
+	</div>
 </div>
 <script type="text/javascript" src="jquery-1.11.3.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//nth-child: 兼容IE8及以下
-		$(".wrap img:nth-child(2)").css("left","120px");
-		$(".wrap img:nth-child(3)").css("left","240px");
-		$(".wrap img:nth-child(4)").css("left","360px");
-		$(".wrap img:nth-child(5)").css("left","480px");
+		$(".wrap .item:nth-child(2)").css("left","120px");
+		$(".wrap .item:nth-child(3)").css("left","240px");
+		$(".wrap .item:nth-child(4)").css("left","360px");
+		$(".wrap .item:nth-child(5)").css("left","480px");
 
 		//鼠标移入图片事件
-		$(".wrap img").mouseover(function(){
+		$(".wrap .item").click(function(){
 			var imgLeft=$(this).position().left;  //目标图片的当前left值
 			var targetLeft=$(this).index()*120; //目标图片应有的left值
 			if(imgLeft==targetLeft){  //说明只需移动目标的后几张图片
@@ -64,7 +111,7 @@
 					})
 				})
 			}else{  //否则，需要移动目标和前几张图片（除了第一张）
-				$(".wrap img").slice(1,$(this).index()+1).each(function(){
+				$(".wrap .item").slice(1,$(this).index()+1).each(function(){
 					$(this).animate({
 						left:$(this).index()*120+"px"
 					})
