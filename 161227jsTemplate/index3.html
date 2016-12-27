@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>输出文章列表</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.wrap{
+			width: 720px;
+			margin: 0 auto;
+		}
+		.article{
+			width: 720px;
+			height: 130px;
+			border: 1px solid #ccc;
+			margin-top: 20px;
+		}
+		div.info{
+			float: left;
+			margin: 20px 0 0 20px;
+		}
+		img.pic{
+			float: right;
+			display: block;
+			width: 90px;
+			height: 90px;
+			margin: 20px 20px 0 0;
+			cursor: pointer;
+		}
+		.clearfix:before,
+		.clearfix:after{
+		    content:" ";
+		    display:table;
+		}
+		.clearfix:after{
+		    clear:both;
+		}
+		.clearfix{
+		*zoom:1
+		}
+		div.top,
+		div.bottom{
+			color: #777;
+			font-size: 14px;
+			line-height: 20px;
+		}
+		a.author{
+			color: #4094c7;
+			text-decoration: none;
+			margin-right: 3px;
+			cursor: pointer;
+		}
+		h3.title{
+			color: #555;
+			line-height: 50px;
+			margin: 0;
+			cursor: pointer;
+		}
+		div.bottom em{
+			font-style: normal;
+		}
+		div.bottom span{
+			margin-left: 3px;
+		}
+		div.bottom span:first-child{
+			margin-left: 0;
+		}
+	</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+	<div class="article clearfix">
+		<div class="info">
+			<div class="top">
+				<a href="#" class="author"></a>
+				<span class="date"></span>
+			</div>
+			<h3 class="title"></h3>
+			<div class="bottom">
+				<span class="read">阅读 <em></em></span>
+				<span class="comment">评论 <em></em></span>
+				<span class="like">喜欢 <em></em></span>
+			</div>
+		</div>
+		<img id="pic" class="pic" src="" alt="">
+	</div>
+</div>
+<script type="text/javascript" src="jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.getJSON("index.js",function(result){
+			var htmlList=""; //声明一个空的html变量
+			var data=result; //返回的是一个由json对象组成的数组
+			$.each(data,function(i,ele){
+				//console.log(ele.title);  //测试：可以正常输出所有的文章标题
+				htmlList+=`<div class='article clearfix'><div class='info'><div class='top'><a href='#' class='author'>${ele.author}</a><span class='date'>${ele.date}</span></div><h3 class='title'>${ele.title}</h3><div class='bottom'><span class='read'>阅读 <em>${ele.read}</em></span><span class='comment'>评论 <em></em>${ele.comment}</span><span class='like'>喜欢 <em>${ele.like}</em></span></div></div><img id='pic' class='pic' src='${ele.img}' alt=''></div>`; //输出所有的文章HTML并拼接在一起
+			});
+			$("#wrap").empty().append(htmlList);
+		})
+	})
+</script>
+
+</body>
+</html>
