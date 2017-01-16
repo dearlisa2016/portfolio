@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>立体翻转</title>
+	<style type="text/css">
+		.flip, .front, .back{
+			width: 400px;
+			height: 300px;
+		}
+		.wrap, .flip{
+			transform-style: preserve-3d;
+			-webkit-transform-style: preserve-3d;
+			perspective: 1000px;
+			/* 300px太小了 */
+			-webkit-perspective: 1000px;
+		}
+		.flip{
+			position: relative;
+			transition: all 1s;
+		}
+		.front, .back{
+			position: absolute;
+			top: 0;
+			left: 0;
+			backface-visibility: hidden;
+		}
+		.back{
+			transform: rotateY(180deg);
+			-webkit-transform: rotateY(180deg);
+			-ms-transform: rotateY(180deg);
+			-moz-transform: rotateY(180deg);
+			-o-transform: rotateY(180deg);
+		}
+
+		.wrap:hover .flip{
+			transform: rotateY(180deg);
+			-webkit-transform:  rotateY(180deg);
+			-ms-transform: rotateY(180deg);
+			-moz-transform: rotateY(180deg);
+			-o-transform: rotateY(180deg);
+		}
+	</style>
+</head>
+<body>
+
+<div class="wrap">
+<!-- 还是要多加一层，因为perspective是对子元素有效的 -->
+	<div class="flip">
+		<div class="front">
+			<img src="img/1.jpg">
+		</div>
+		<div class="back">
+			<img src="img/2.jpg">
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
